@@ -11,32 +11,36 @@ function ROICalculator() {
        churnRate: 10,
        threatCaptainCost: 1500,
        closeRateImprovement: 10,
-       dealSizeImprovement: 25,
+       dealSizeImprovement: 5,
        churnRateReduction: 3
+   });
+
+   const [enabledImpacts, setEnabledImpacts] = useState({
+       sales: false,
+       service: false,
+       qbr: false
    });
 
    const [results, setResults] = useState(null);
 
    const handleChange = (e) => {
-    const { name, value } = e.target;
-    setInputs(prev => ({
-        ...prev,
-        [name]: value === '' ? '' : parseFloat(value)
-    }));
-};
+       const { name, value } = e.target;
+       setInputs(prev => ({
+           ...prev,
+           [name]: value === '' ? '' : parseFloat(value)
+       }));
+   };
 
    const calculateResults = () => {
-       // Without ThreatCaptain
        const monthlyDeals = (inputs.monthlyLeads * (inputs.closeRate / 100));
        const annualNewCustomers = Math.round(monthlyDeals * 12);
        const annualChurn = Math.round(inputs.currentCustomers * (inputs.churnRate / 100));
        const totalCustomersWithout = inputs.currentCustomers + annualNewCustomers - annualChurn;
        const annualRevenueWithout = totalCustomersWithout * inputs.averageDealSize;
 
-       // With ThreatCaptain
-       const improvedCloseRate = inputs.closeRate + inputs.closeRateImprovement;
-       const improvedDealSize = inputs.averageDealSize * (1 + inputs.dealSizeImprovement / 100);
-       const improvedChurnRate = inputs.churnRate - inputs.churnRateReduction;
+       const improvedCloseRate = inputs.closeRate + (enabledImpacts.sales ? inputs.closeRateImprovement : 0);
+       const improvedDealSize = inputs.averageDealSize * (1 + (enabledImpacts.service ? inputs.dealSizeImprovement : 0) / 100);
+       const improvedChurnRate = inputs.churnRate - (enabledImpacts.qbr ? inputs.churnRateReduction : 0);
        
        const improvedMonthlyDeals = (inputs.monthlyLeads * (improvedCloseRate / 100));
        const improvedAnnualNewCustomers = Math.round(improvedMonthlyDeals * 12);
@@ -73,70 +77,94 @@ function ROICalculator() {
            
            <div className="section-group">
                <h2>Sales Numbers</h2>
-               <div className="input-row">
-                   <div className="input-field">
-                       <label>Annual Revenue ($)</label>
-                       <input
-                           type="number"
-                           name="annualRevenue"
-                           value={inputs.annualRevenue}
-                           onChange={handleChange}
-                       />
+               <div className="section-content">
+                   <div className="section-text">
+                       <p>Understanding your current sales performance is crucial for measuring the impact of ThreatCaptain. These metrics help establish your baseline revenue and customer value.</p>
                    </div>
-                   <div className="input-field">
-                       <label>Current Customers</label>
-                       <input
-                           type="number"
-                           name="currentCustomers"
-                           value={inputs.currentCustomers}
-                           onChange={handleChange}
-                       />
+                   <div className="inputs-container">
+                       <div className="input-row">
+                           <div className="input-field">
+                               <label>Annual Revenue ($)</label>
+                               <input
+                                   type="text"
+                                   name="annualRevenue"
+                                   value={inputs.annualRevenue.toLocaleString()}
+                                   onChange={e => {
+                                       const value = e.target.value.replace(/,/g, '');
+                                       handleChange({target: {name: 'annualRevenue', value}});
+                                   }}
+                               />
+                           </div>
+                           <div className="input-field">
+                               <label>Current Customers</label>
+                               <input
+                                   type="number"
+                                   name="currentCustomers"
+                                   value={inputs.currentCustomers}
+                                   onChange={handleChange}
+                               />
+                           </div>
+                       </div>
+                       <div className="input-field">
+                           <label>Average Deal Size ($)</label>
+                           <input
+                               type="number"
+                               name="averageDealSize"
+                               value={inputs.currentCustomers ? (inputs.annualRevenue / inputs.currentCustomers).toFixed(2) : 0}
+                               readOnly
+                               className="bg-gray-100"
+                           />
+                       </div>
                    </div>
-               </div>
-               <div className="input-field">
-                   <label>Average Deal Size ($)</label>
-                   <input
-                       type="number"
-                       name="averageDealSize"
-                       value={inputs.currentCustomers ? (inputs.annualRevenue / inputs.currentCustomers).toFixed(2) : 0}
-                       readOnly
-                       className="bg-gray-100"
-                   />
                </div>
            </div>
 
            <div className="section-group">
                <h2>Customer Acquisition</h2>
-               <div className="input-field">
-                   <label>New Qualified Leads per Month</label>
-                   <input
-                       type="number"
-                       name="monthlyLeads"
-                       value={inputs.monthlyLeads}
-                       onChange={handleChange}
-                   />
-               </div>
-               <div className="input-field">
-                   <label>Current Close Rate (%)</label>
-                   <input
-                       type="number"
-                       name="closeRate"
-                       value={inputs.closeRate}
-                       onChange={handleChange}
-                   />
+               <div className="section-content">
+                   <div className="section-text">
+                       <p>Your lead generation and conversion rates determine how quickly you can grow your customer base. ThreatCaptain helps improve these metrics.</p>
+                   </div>
+                   <div className="inputs-container">
+                       <div className="input-field">
+                           <label>New Qualified Leads per Month</label>
+                           <input
+                               type="number"
+                               name="monthlyLeads"
+                               value={inputs.monthlyLeads}
+                               onChange={handleChange}
+                           />
+                       </div>
+                       <div className="input-field">
+                           <label>Current Close Rate (%)</label>
+                           <input
+                               type="number"
+                               name="closeRate"
+                               value={inputs.closeRate}
+                               onChange={handleChange}
+                           />
+                       </div>
+                   </div>
                </div>
            </div>
 
            <div className="section-group">
                <h2>Customer Success</h2>
-               <div className="input-field">
-                   <label>Current Churn Rate (%)</label>
-                   <input
-                       type="number"
-                       name="churnRate"
-                       value={inputs.churnRate}
-                       onChange={handleChange}
-                   />
+               <div className="section-content">
+                   <div className="section-text">
+                       <p>Customer retention is key to sustainable growth. Lower churn rates mean better customer satisfaction and more predictable revenue.</p>
+                   </div>
+                   <div className="inputs-container">
+                       <div className="input-field">
+                           <label>Current Churn Rate (%)</label>
+                           <input
+                               type="number"
+                               name="churnRate"
+                               value={inputs.churnRate}
+                               onChange={handleChange}
+                           />
+                       </div>
+                   </div>
                </div>
            </div>
 
@@ -154,35 +182,88 @@ function ROICalculator() {
 
            <div className="impact-section">
                <h2>ThreatCaptain Impact</h2>
-               <div className="impact-inputs">
-                   <div className="input-field improvement">
-                       <label>Close Rate Improvement (%)</label>
+               <div className="section-text main-impact-text">
+                   <p>ThreatCaptain can improve your business in several ways. Let's explore which areas you're most interested in.</p>
+               </div>
+               
+               <div className="impact-group">
+                   <div className="impact-checkbox">
                        <input
-                           type="number"
-                           name="closeRateImprovement"
-                           value={inputs.closeRateImprovement}
-                           onChange={handleChange}
+                           type="checkbox"
+                           id="sales-integration"
+                           checked={enabledImpacts.sales}
+                           onChange={(e) => setEnabledImpacts({...enabledImpacts, sales: e.target.checked})}
                        />
+                       <label htmlFor="sales-integration">Integrate with Sales</label>
                    </div>
-
-                   <div className="input-field improvement">
-                       <label>Deal Size Improvement (%)</label>
-                       <input
-                           type="number"
-                           name="dealSizeImprovement"
-                           value={inputs.dealSizeImprovement}
-                           onChange={handleChange}
-                       />
+                   <div className="section-content">
+                       <div className="section-text">
+                           <p>By integrating with your sales process, ThreatCaptain helps qualify leads faster and close deals more effectively.</p>
+                       </div>
+                       <div className="input-field improvement">
+                           <label>Close Rate Improvement (%)</label>
+                           <input
+                               type="number"
+                               name="closeRateImprovement"
+                               value={inputs.closeRateImprovement}
+                               onChange={handleChange}
+                               disabled={!enabledImpacts.sales}
+                           />
+                       </div>
                    </div>
+               </div>
 
-                   <div className="input-field improvement">
-                       <label>Churn Rate Reduction (%)</label>
+               <div className="impact-group">
+                   <div className="impact-checkbox">
                        <input
-                           type="number"
-                           name="churnRateReduction"
-                           value={inputs.churnRateReduction}
-                           onChange={handleChange}
+                           type="checkbox"
+                           id="service-enrichment"
+                           checked={enabledImpacts.service}
+                           onChange={(e) => setEnabledImpacts({...enabledImpacts, service: e.target.checked})}
                        />
+                       <label htmlFor="service-enrichment">Enrich Service Offering</label>
+                   </div>
+                   <div className="section-content">
+                       <div className="section-text">
+                           <p>Enhance your service value proposition with ThreatCaptain's capabilities, enabling premium pricing and larger deal sizes.</p>
+                       </div>
+                       <div className="input-field improvement">
+                           <label>Deal Size Improvement (%)</label>
+                           <input
+                               type="number"
+                               name="dealSizeImprovement"
+                               value={inputs.dealSizeImprovement}
+                               onChange={handleChange}
+                               disabled={!enabledImpacts.service}
+                           />
+                       </div>
+                   </div>
+               </div>
+
+               <div className="impact-group">
+                   <div className="impact-checkbox">
+                       <input
+                           type="checkbox"
+                           id="qbr-integration"
+                           checked={enabledImpacts.qbr}
+                           onChange={(e) => setEnabledImpacts({...enabledImpacts, qbr: e.target.checked})}
+                       />
+                       <label htmlFor="qbr-integration">Integrate with QBR</label>
+                   </div>
+                   <div className="section-content">
+                       <div className="section-text">
+                           <p>Strengthen customer relationships and reduce churn by incorporating ThreatCaptain insights into your quarterly business reviews.</p>
+                       </div>
+                       <div className="input-field improvement">
+                           <label>Churn Rate Reduction (%)</label>
+                           <input
+                               type="number"
+                               name="churnRateReduction"
+                               value={inputs.churnRateReduction}
+                               onChange={handleChange}
+                               disabled={!enabledImpacts.qbr}
+                           />
+                       </div>
                    </div>
                </div>
            </div>

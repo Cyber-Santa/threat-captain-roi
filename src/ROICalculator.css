@@ -1,0 +1,173 @@
+.calculator {
+   max-width: 1200px;
+   margin: 20px auto;
+   padding: 20px;
+   background-color: #05143E;
+   color: #FFFFFF;
+}
+
+.section-group {
+   margin-bottom: 30px;
+   padding: 25px;
+   background: rgba(255, 255, 255, 0.05);
+   border-radius: 12px;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.section-group h2 {
+   margin-bottom: 20px;
+   color: #FFFFFF;
+   font-size: 1.4em;
+   font-weight: 600;
+}
+
+.section-content {
+   display: grid;
+   grid-template-columns: 1fr 2fr;
+   gap: 30px;
+   align-items: start;
+}
+
+.section-text {
+   color: #FFFFFF;
+   background: rgba(255, 255, 255, 0.08);
+   padding: 20px;
+   border-radius: 8px;
+   font-size: 0.95em;
+   line-height: 1.6;
+}
+
+.inputs-container {
+   flex: 1;
+}
+
+.input-row {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px;
+   margin-bottom: 20px;
+}
+
+.input-field {
+   display: flex;
+   flex-direction: column;
+   margin-bottom: 15px;
+}
+
+.input-field label {
+   margin-bottom: 8px;
+   font-weight: 500;
+   color: #FFFFFF;
+}
+
+.input-field input {
+   padding: 12px;
+   background: rgba(255, 255, 255, 0.1);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   border-radius: 6px;
+   color: #FFFFFF;
+}
+
+.input-field input:focus {
+   outline: none;
+   border-color: rgba(255, 255, 255, 0.4);
+   background: rgba(255, 255, 255, 0.15);
+}
+
+.input-field input:disabled {
+   opacity: 0.5;
+   cursor: not-allowed;
+}
+
+.impact-section {
+   background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+   margin: 40px 0;
+   padding: 30px;
+   border-radius: 12px;
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.impact-section h2 {
+   text-align: center;
+   margin-bottom: 20px;
+   color: #FFFFFF;
+}
+
+.main-impact-text {
+   margin-bottom: 25px;
+}
+
+.impact-group {
+   margin-bottom: 25px;
+   padding: 20px;
+   background: rgba(255, 255, 255, 0.1);
+   border-radius: 8px;
+}
+
+.impact-checkbox {
+   margin-bottom: 15px;
+}
+
+.impact-checkbox input[type="checkbox"] {
+   margin-right: 10px;
+   transform: scale(1.2);
+}
+
+.impact-checkbox label {
+   font-size: 1.1em;
+   font-weight: 500;
+}
+
+button {
+   background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
+   color: white;
+   padding: 15px 30px;
+   font-size: 1.1em;
+   font-weight: 600;
+   border: none;
+   border-radius: 8px;
+   cursor: pointer;
+   margin: 20px 0;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   width: 100%;
+}
+
+button:hover {
+   background: linear-gradient(135deg, #1976d2 0%, #0d47a1 100%);
+}
+
+.comparison {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px;
+   margin-top: 20px;
+   background: rgba(255, 255, 255, 0.05);
+   padding: 20px;
+   border-radius: 12px;
+}
+
+.without, .with {
+   padding: 20px;
+   background: rgba(255, 255, 255, 0.1);
+   border-radius: 8px;
+}
+
+.summary {
+   margin-top: 30px;
+   padding: 25px;
+   background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+   border-radius: 12px;
+   font-size: 1.2em;
+   font-weight: 500;
+}
+
+h1 {
+   text-align: center;
+   margin-bottom: 30px;
+   color: #FFFFFF;
+}
+
+h3 {
+   margin-top: 0;
+   color: #FFFFFF;
+}
