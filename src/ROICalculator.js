@@ -223,11 +223,17 @@ function ROICalculator() {
                            checked={enabledImpacts.sales}
                            onChange={(e) => setEnabledImpacts({...enabledImpacts, sales: e.target.checked})}
                        />
-                       <label htmlFor="sales-integration">Integrate with Sales</label>
+                       <label htmlFor="sales-integration">1. Integrate with Sales</label>
                    </div>
                    <div className="section-content">
                        <div className="section-text">
-                           <p>By integrating with your sales process, ThreatCaptain helps qualify leads faster and close deals more effectively.</p>
+                           <p>ThreatCaptain's FIA transforms your sales process by turning technical risks into compelling financial insights that drive decision-making.</p>
+                           <ul>
+                               <li>Highlight the financial consequences of cyber risks to build trust and urgency with prospects.</li>
+                               <li>Quantify pain points to create customized, ROI-driven proposals that resonate with executives.</li>
+                               <li>Shorten sales cycles by presenting clear, business-relevant outcomes tied to cybersecurity investments.</li>
+                           </ul>
+                           <em>With ThreatCaptain's FIA, you'll close more deals by speaking the language of business leaders.</em>
                        </div>
                        <div className="input-field improvement">
                            <label>Close Rate Improvement (%)</label>
@@ -250,11 +256,17 @@ function ROICalculator() {
                            checked={enabledImpacts.service}
                            onChange={(e) => setEnabledImpacts({...enabledImpacts, service: e.target.checked})}
                        />
-                       <label htmlFor="service-enrichment">Enrich Service Offering</label>
+                       <label htmlFor="service-enrichment">2. Enrich Service Offering</label>
                    </div>
                    <div className="section-content">
                        <div className="section-text">
-                           <p>Enhance your service value proposition with ThreatCaptain's capabilities, enabling premium pricing and larger deal sizes.</p>
+                           <p>ThreatCaptain's FIA is the cornerstone of a premium service portfolio, delivering both compliance assurance and financially prioritized roadmaps.</p>
+                           <ul>
+                               <li>Provide clients with financial insights that meet compliance mandates like GDPR, HIPAA, and PCI DSS.</li>
+                               <li>Build strategic roadmaps that focus resources on addressing the highest-impact risks.</li>
+                               <li>Elevate your MSP's role from service provider to trusted advisor with measurable business outcomes.</li>
+                           </ul>
+                           <em>With ThreatCaptain's FIA, you can offer unmatched value by tying cybersecurity to business strategy.</em>
                        </div>
                        <div className="input-field improvement">
                            <label>Deal Size Improvement (%)</label>
@@ -277,11 +289,17 @@ function ROICalculator() {
                            checked={enabledImpacts.qbr}
                            onChange={(e) => setEnabledImpacts({...enabledImpacts, qbr: e.target.checked})}
                        />
-                       <label htmlFor="qbr-integration">Integrate with QBR</label>
+                       <label htmlFor="qbr-integration">3. Integrate with QBR</label>
                    </div>
                    <div className="section-content">
                        <div className="section-text">
-                           <p>Strengthen customer relationships and reduce churn by incorporating ThreatCaptain insights into your quarterly business reviews.</p>
+                           <p>ThreatCaptain's FIA elevates your QBRs by proving the value of your clients' cybersecurity investments.</p>
+                           <ul>
+                               <li>Justify spend with clear metrics showing reduced financial risks and improved ROI.</li>
+                               <li>Showcase how proactive measures align with business goals and mitigate high-cost threats.</li>
+                               <li>Uncover upsell opportunities by presenting updated financial scenarios and risk insights.</li>
+                           </ul>
+                           <em>ThreatCaptain's FIA keeps clients engaged, confident, and committed to your MSP's services.</em>
                        </div>
                        <div className="input-field improvement">
                            <label>Churn Rate Reduction (%)</label>
@@ -321,6 +339,7 @@ function ROICalculator() {
                        </div>
                    </div>
 
+                  
                    <div className="summary">
                        <p>Monthly New Revenue: ${results.monthlyNewRevenue.toLocaleString()}</p>
                        <p>Monthly ROI: {results.roi.toFixed(0)}%</p>
