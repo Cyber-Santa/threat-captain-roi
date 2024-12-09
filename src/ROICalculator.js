@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ROICalculator.css';
 
 function ROICalculator() {
@@ -23,6 +23,14 @@ function ROICalculator() {
 
    const [results, setResults] = useState(null);
 
+   useEffect(() => {
+       const suggestedPrice = inputs.annualRevenue >= 3000000 ? 1500 : 500;
+       setInputs(prev => ({
+           ...prev,
+           threatCaptainCost: suggestedPrice
+       }));
+   }, [inputs.annualRevenue]);
+
    const handleChange = (e) => {
        const { name, value } = e.target;
        setInputs(prev => ({
@@ -36,10 +44,10 @@ function ROICalculator() {
        const annualNewCustomers = Math.round(monthlyDeals * 12);
        const annualChurn = Math.round(inputs.currentCustomers * (inputs.churnRate / 100));
        const totalCustomersWithout = inputs.currentCustomers + annualNewCustomers - annualChurn;
-       const annualRevenueWithout = totalCustomersWithout * inputs.averageDealSize;
+       const annualRevenueWithout = totalCustomersWithout * (inputs.annualRevenue / inputs.currentCustomers);
 
        const improvedCloseRate = inputs.closeRate + (enabledImpacts.sales ? inputs.closeRateImprovement : 0);
-       const improvedDealSize = inputs.averageDealSize * (1 + (enabledImpacts.service ? inputs.dealSizeImprovement : 0) / 100);
+       const improvedDealSize = (inputs.annualRevenue / inputs.currentCustomers) * (1 + (enabledImpacts.service ? inputs.dealSizeImprovement : 0) / 100);
        const improvedChurnRate = inputs.churnRate - (enabledImpacts.qbr ? inputs.churnRateReduction : 0);
        
        const improvedMonthlyDeals = (inputs.monthlyLeads * (improvedCloseRate / 100));
@@ -53,7 +61,7 @@ function ROICalculator() {
 
        setResults({
            without: {
-               dealSize: inputs.averageDealSize,
+               dealSize: inputs.annualRevenue / inputs.currentCustomers,
                newCustomers: annualNewCustomers,
                churnedCustomers: annualChurn,
                totalCustomers: totalCustomersWithout,
@@ -90,8 +98,8 @@ function ROICalculator() {
                                    name="annualRevenue"
                                    value={inputs.annualRevenue.toLocaleString()}
                                    onChange={e => {
-                                       const value = e.target.value.replace(/,/g, '');
-                                       handleChange({target: {name: 'annualRevenue', value}});
+                                       const rawValue = e.target.value.replace(/[^0-9]/g, '');
+                                       handleChange({target: {name: 'annualRevenue', value: rawValue}});
                                    }}
                                />
                            </div>
@@ -108,9 +116,14 @@ function ROICalculator() {
                        <div className="input-field">
                            <label>Average Deal Size ($)</label>
                            <input
-                               type="number"
+                               type="text"
                                name="averageDealSize"
-                               value={inputs.currentCustomers ? (inputs.annualRevenue / inputs.currentCustomers).toFixed(2) : 0}
+                               value={inputs.currentCustomers ? 
+                                   `$${(inputs.annualRevenue / inputs.currentCustomers).toLocaleString(undefined, {
+                                       minimumFractionDigits: 2,
+                                       maximumFractionDigits: 2
+                                   })}` 
+                                   : '$0.00'}
                                readOnly
                                className="bg-gray-100"
                            />
@@ -169,14 +182,30 @@ function ROICalculator() {
            </div>
 
            <div className="section-group">
-               <div className="input-field">
-                   <label>ThreatCaptain Monthly Investment ($)</label>
-                   <input
-                       type="number"
-                       name="threatCaptainCost"
-                       value={inputs.threatCaptainCost}
-                       onChange={handleChange}
-                   />
+               <div className="pricing-options">
+                   <h2>ThreatCaptain Investment</h2>
+                   <div className="radio-group">
+                       <div className="radio-option">
+                           <input
+                               type="radio"
+                               id="enterprise"
+                               name="pricingTier"
+                               checked={inputs.threatCaptainCost === 1500}
+                               onChange={() => handleChange({target: {name: 'threatCaptainCost', value: 1500}})}
+                           />
+                           <label htmlFor="enterprise">Annual Revenue over $3 Million - Founders Pricing $1,500.00/month</label>
+                       </div>
+                       <div className="radio-option">
+                           <input
+                               type="radio"
+                               id="growth"
+                               name="pricingTier"
+                               checked={inputs.threatCaptainCost === 500}
+                               onChange={() => handleChange({target: {name: 'threatCaptainCost', value: 500}})}
+                           />
+                           <label htmlFor="growth">Annual Revenue under $3 Million - Growth Pricing $500.00/month</label>
+                       </div>
+                   </div>
                </div>
            </div>
 
