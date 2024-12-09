@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/threat-captain-roi/static/css/main.c7c40662.css",
-    "main.js": "/threat-captain-roi/static/js/main.f5ba3262.js",
+    "main.css": "/threat-captain-roi/static/css/main.fd53d45c.css",
+    "main.js": "/threat-captain-roi/static/js/main.4724a2c1.js",
     "static/js/453.16a33d8c.chunk.js": "/threat-captain-roi/static/js/453.16a33d8c.chunk.js",
     "index.html": "/threat-captain-roi/index.html",
-    "main.c7c40662.css.map": "/threat-captain-roi/static/css/main.c7c40662.css.map",
-    "main.f5ba3262.js.map": "/threat-captain-roi/static/js/main.f5ba3262.js.map",
+    "main.fd53d45c.css.map": "/threat-captain-roi/static/css/main.fd53d45c.css.map",
+    "main.4724a2c1.js.map": "/threat-captain-roi/static/js/main.4724a2c1.js.map",
     "453.16a33d8c.chunk.js.map": "/threat-captain-roi/static/js/453.16a33d8c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c7c40662.css",
-    "static/js/main.f5ba3262.js"
+    "static/css/main.fd53d45c.css",
+    "static/js/main.4724a2c1.js"
   ]
 }
