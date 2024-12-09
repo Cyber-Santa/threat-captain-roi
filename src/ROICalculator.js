@@ -96,7 +96,7 @@ function ROICalculator() {
                                <input
                                    type="text"
                                    name="annualRevenue"
-                                   value={inputs.annualRevenue.toLocaleString()}
+                                   value={'$' + Number(inputs.annualRevenue).toLocaleString()}
                                    onChange={e => {
                                        const rawValue = e.target.value.replace(/[^0-9]/g, '');
                                        handleChange({target: {name: 'annualRevenue', value: rawValue}});
@@ -322,7 +322,7 @@ function ROICalculator() {
                    <div className="comparison">
                        <div className="without">
                            <h3>Without ThreatCaptain</h3>
-                           <p>Average Deal Size: ${results.without.dealSize.toLocaleString()}</p>
+                           <p>Average Deal Size: ${results.without.dealSize.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                            <p>New Customers: {results.without.newCustomers}</p>
                            <p>Churned Customers: {results.without.churnedCustomers}</p>
                            <p>Total Customers: {results.without.totalCustomers}</p>
@@ -331,7 +331,7 @@ function ROICalculator() {
 
                        <div className="with">
                            <h3>With ThreatCaptain</h3>
-                           <p>Average Deal Size: ${results.with.dealSize.toLocaleString()}</p>
+                           <p>Average Deal Size: ${results.with.dealSize.toLocaleString(undefined, { maximumFractionDigits: 0 })}</p>
                            <p>New Customers: {results.with.newCustomers}</p>
                            <p>Churned Customers: {results.with.churnedCustomers}</p>
                            <p>Total Customers: {results.with.totalCustomers}</p>
