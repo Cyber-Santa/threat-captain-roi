@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/threat-captain-roi/static/css/main.6a1af8e8.css",
-    "main.js": "/threat-captain-roi/static/js/main.49bd8f76.js",
+    "main.js": "/threat-captain-roi/static/js/main.001338e9.js",
     "static/js/453.16a33d8c.chunk.js": "/threat-captain-roi/static/js/453.16a33d8c.chunk.js",
     "index.html": "/threat-captain-roi/index.html",
     "main.6a1af8e8.css.map": "/threat-captain-roi/static/css/main.6a1af8e8.css.map",
-    "main.49bd8f76.js.map": "/threat-captain-roi/static/js/main.49bd8f76.js.map",
+    "main.001338e9.js.map": "/threat-captain-roi/static/js/main.001338e9.js.map",
     "453.16a33d8c.chunk.js.map": "/threat-captain-roi/static/js/453.16a33d8c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a1af8e8.css",
-    "static/js/main.49bd8f76.js"
+    "static/js/main.001338e9.js"
   ]
 }
