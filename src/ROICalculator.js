@@ -342,7 +342,6 @@ function ROICalculator() {
                   
                    <div className="summary">
                        <p>Monthly New Revenue: ${results.monthlyNewRevenue.toLocaleString()}</p>
-                       <p>Monthly ROI: {results.roi.toFixed(0)}%</p>
                    </div>
                </div>
            )}
